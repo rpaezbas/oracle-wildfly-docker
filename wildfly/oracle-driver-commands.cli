@@ -1,0 +1,11 @@
+batch
+#To create the jboss module for oracle
+module add --name=com.oracle --resources=/opt/jboss/wildfly/ojdbc7.jar --dependencies=javax.api,javax.transaction.api
+
+/subsystem=datasources/jdbc-driver=oracle:add(driver-name="oracle",driver-module-name="com.oracle",driver-class-name=oracle.jdbc.driver.OracleDriver)
+
+data-source add --jndi-name=java:jboss/datasources/OracleDS --name=OraclePool --connection-url=jdbc:oracle:thin:@db:1521:xe --driver-name=oracle --user-name=vans --password=password
+
+
+#Execute the batch
+run-batch
